@@ -1,0 +1,94 @@
+/* Use the generous empty margins around the chat column.
+   Chainlit lays messages out in a narrow (~48rem) centred container; we widen
+   it so long answers, the execution trace, and source chips have more room.
+   Selectors are best-effort across Chainlit 2.x builds — if a class is renamed,
+   the rule is simply a no-op (never breaks the layout). */
+.max-w-3xl,
+#message-list .max-w-3xl,
+[class*="messageContainer"] {
+  max-width: 56rem !important;
+}
+
+/* Slightly tighter, themed scrollbars for the dashboard sidebar. */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 135, 0.35);
+  border-radius: 8px;
+}
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 120, 135, 0.55);
+}
+
+/* ---------------------------------------------------------------------------
+   Header-toggled slide-in drawers (Live dashboard + Test cases).
+   public/custom.js promotes each live element (in place — it is never moved, so
+   Chainlit's prop updates keep flowing) into a fixed, right-docked drawer and
+   hides its origin chat bubble. `body.cl-dash-open` / `body.cl-tests-open`
+   toggle them. Until JS wires them up the elements stay inline (graceful
+   degradation), so this is purely progressive enhancement.
+--------------------------------------------------------------------------- */
+
+/* The element itself becomes the drawer, in place. */
+body.cl-dash-ready [data-cl-dashboard],
+body.cl-tests-ready [data-cl-tests] {
+  position: fixed;
+  top: 52px; /* clear the header */
+  right: 0;
+  height: calc(100vh - 52px);
+  width: 420px;
+  max-width: 92vw;
+  z-index: 60;
+  overflow-y: auto;
+  padding: 44px 14px 16px; /* top room for the floating close button */
+  visibility: visible; /* override the hidden host bubble below */
+  /* Fallback solid first, then themed background if the var exists. */
+  background: #0b0b0f;
+  background: hsl(var(--background));
+  border-left: 1px solid rgba(120, 120, 135, 0.25);
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.45);
+  transform: translateX(105%);
+  transition: transform 0.25s ease;
+}
+body.cl-dash-open [data-cl-dashboard],
+body.cl-tests-open [data-cl-tests] {
+  transform: translateX(0);
+}
+
+/* Collapse the origin chat bubble (avatar/padding) without display:none, so
+   the position:fixed drawer descendant stays rendered + visible. */
+.cl-dash-host,
+.cl-tests-host {
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Floating close buttons, only visible while their drawer is open. */
+.cl-panel-close {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  z-index: 61;
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0 4px;
+  cursor: pointer;
+  color: #e5e7eb;
+  color: hsl(var(--foreground));
+  opacity: 0.6;
+}
+body.cl-dash-open #cl-dash-close,
+body.cl-tests-open #cl-tests-close {
+  display: block;
+}
+.cl-panel-close:hover {
+  opacity: 1;
+}

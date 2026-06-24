@@ -1,0 +1,44 @@
+[project]
+# Disable anonymized telemetry inside the container.
+enable_telemetry = false
+
+# Keep all sessions in-memory; no external persistence is required.
+session_timeout = 3600
+
+# We do not expose a data persistence layer.
+user_env = []
+
+[features]
+# This is a text-only Q&A assistant.
+unsafe_allow_html = false
+latex = false
+
+[UI]
+name = "iPhone Guide Assistant"
+description = "Ask questions about the iPhone User Guide. Answers are grounded and cited."
+default_collapse_content = true
+# Widen the chat column + theme the dashboard scrollbars (served from /public).
+custom_css = "/public/custom.css"
+# Adds the header "Live dashboard" toggle + slide-in panel behaviour.
+custom_js = "/public/custom.js"
+
+# A header button (like the built-in "Readme" link). Its click is intercepted
+# by custom.js to slide in the live session dashboard instead of navigating.
+[[UI.header_links]]
+name = "Live dashboard"
+display_name = "Live dashboard"
+url = "#dashboard"
+target = "_self"
+icon_url = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlYzQ4OTkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMyAzdjE4aDE4Ii8+PHJlY3QgeD0iNyIgeT0iMTEiIHdpZHRoPSIzIiBoZWlnaHQ9IjciLz48cmVjdCB4PSIxMiIgeT0iNiIgd2lkdGg9IjMiIGhlaWdodD0iMTIiLz48cmVjdCB4PSIxNyIgeT0iMTMiIHdpZHRoPSIzIiBoZWlnaHQ9IjUiLz48L3N2Zz4="
+
+# A second header button. custom.js intercepts its click to slide in the
+# copy-and-paste "Test cases" panel (TestCases.jsx) instead of navigating.
+[[UI.header_links]]
+name = "Test cases"
+display_name = "Test cases"
+url = "#tests"
+target = "_self"
+icon_url = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlYzQ4OTkiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB4PSI4IiB5PSIyIiB3aWR0aD0iOCIgaGVpZ2h0PSI0IiByeD0iMSIgcnk9IjEiLz48cGF0aCBkPSJNMTYgNGgyYTIgMiAwIDAgMSAyIDJ2MTRhMiAyIDAgMCAxLTIgMkg2YTIgMiAwIDAgMS0yLTJWNmEyIDIgMCAwIDEgMi0yaDIiLz48cGF0aCBkPSJNMTIgMTFoNCIvPjxwYXRoIGQ9Ik0xMiAxNmg0Ii8+PHBhdGggZD0iTTggMTFoLjAxIi8+PHBhdGggZD0iTTggMTZoLjAxIi8+PC9zdmc+"
+
+[meta]
+generated_by = "iphone-rag-chatbot"

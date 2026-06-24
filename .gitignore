@@ -1,0 +1,45 @@
+# Secrets — NEVER commit real credentials
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Chainlit runtime artifacts (keep the committed config.toml)
+.chainlit/translations/
+.files/
+chainlit.lock
+
+# Local development artifacts — NOT needed by the cloud-only Docker image.
+# The Qdrant path rebuilds the corpus (BM25 + section centroids + parent
+# expander) from the cloud collection at startup, so these on-disk dumps are
+# only used by the local FAISS dev backend and are produced by running
+# ingestion locally.
+.faiss_index/
+*.faiss
+*.pkl
+.bm25_corpus.json
+.sections.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log

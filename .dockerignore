@@ -1,0 +1,38 @@
+# Keep the image small and never leak secrets into build context
+.env
+.env.*
+!.env.example
+
+.git/
+.gitignore
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.chainlit/translations/
+.files/
+tests/
+
+# Local-only artifacts — this image is cloud-only (Qdrant). The FAISS index,
+# the BM25/section JSON dumps, the source PDF, and the ingestion script are used
+# solely for offline local development / one-off ingestion. The cloud path
+# rebuilds the corpus from Qdrant at startup, so none of these belong in the
+# image.
+.faiss_index/
+.bm25_corpus.json
+.sections.json
+data/
+ingest/
+
+*.md
+!README.md
+!chainlit.md
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

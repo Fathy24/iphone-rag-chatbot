@@ -1,0 +1,44 @@
+# Core orchestration
+langchain>=0.3.0,<0.4.0
+langchain-core>=0.3.0,<0.4.0
+langchain-openai>=0.2.0,<0.4.0
+langgraph>=0.2.40,<0.3.0
+
+# Cloud vector database client (Qdrant Cloud)
+qdrant-client>=1.12.0,<2.0.0
+
+# Optional local vector store for offline testing (VECTOR_BACKEND=faiss)
+langchain-community>=0.3.0,<0.4.0
+faiss-cpu>=1.8.0,<2.0.0
+
+# Sparse lexical retrieval (BM25) for hybrid search
+rank-bm25>=0.2.2,<0.3.0
+
+# Conversational UI
+chainlit>=1.3.0,<3.0.0
+
+# PDF parsing (page-accurate, fast)
+pymupdf>=1.24.0,<2.0.0
+
+# PDF export of answers / cited passages (styled, downloadable)
+reportlab>=4.2.0,<5.0.0
+
+# Configuration & validation
+pydantic>=2.7.0,<3.0.0
+pydantic-settings>=2.4.0,<3.0.0
+python-dotenv>=1.0.0,<2.0.0
+
+# Numerical ops for semantic chunking
+numpy>=1.26.0,<3.0.0
+
+# Tokenization for chunking
+tiktoken>=0.7.0,<1.0.0
+
+# HTTP client for the reranker gateway call
+requests>=2.31.0,<3.0.0
+
+# Robust retries on network/LLM calls
+tenacity>=8.5.0,<10.0.0
+
+# Testing
+pytest>=8.0.0,<9.0.0
