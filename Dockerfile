@@ -40,7 +40,8 @@ COPY docker-entrypoint.sh ./docker-entrypoint.sh
 # only for offline local development — see the README.)
 
 # Run as a non-root user.
-RUN chmod +x docker-entrypoint.sh \
+RUN sed -i 's/\r$//' docker-entrypoint.sh \
+    && chmod +x docker-entrypoint.sh \
     && useradd --create-home --uid 1000 appuser \
     && chown -R appuser:appuser /app
 USER appuser
