@@ -59,7 +59,7 @@ You supply your **own** `OPENAI_API_KEY` (used for query embeddings + the
 ### Step 1 — Clone and create your `.env`
 
 ```bash
-git clone <your-repo>
+git clone https://github.com/Fathy24/iphone-rag-chatbot
 cd iphone-rag-chatbot
 cp .env.example .env
 ```
@@ -77,6 +77,49 @@ QDRANT_API_KEY=<the key we emailed>
 
 Leave `VECTOR_BACKEND=qdrant` as-is — the image is cloud-only and queries the
 pre-populated cluster directly.
+>## Model configuration notes
+
+The `.env.example` file includes default model names for the chat model, embedding model, and reranker:
+
+```env
+CHAT_MODEL=gpt-4o
+EMBEDDING_MODEL=text-embedding-3-large
+RERANK_MODEL=bedrock.cohere.rerank-3-5
+```
+
+These values may need to be changed depending on the provider or OpenAI-compatible gateway being used.
+
+For example, when using a gateway that prefixes models by provider, the values may look like:
+
+```env
+CHAT_MODEL=azure.gpt-4o
+EMBEDDING_MODEL=azure.text-embedding-3-large
+RERANK_MODEL=bedrock.cohere.rerank-3-5
+```
+
+When using the public OpenAI API directly, the values may look like:
+
+```env
+CHAT_MODEL=gpt-4o
+EMBEDDING_MODEL=text-embedding-3-large
+```
+
+The embedding model must match the model used when the Qdrant collection was created. If the stored vectors were generated with `text-embedding-3-large`, then the runtime `EMBEDDING_MODEL` and `EMBEDDING_DIM` must match that setup.
+
+The reranker is optional. It requires an OpenAI-compatible gateway that exposes the configured rerank endpoint:
+
+```env
+USE_RERANKER=true
+RERANK_ENDPOINT_PATH=/rerank
+RERANK_MODEL=bedrock.cohere.rerank-3-5
+```
+
+If the selected API provider does not support reranking, the app will skip reranking automatically or you can disable it explicitly:
+
+```env
+USE_RERANKER=false
+```
+
 
 > Both Qdrant values are required: the URL alone will not authenticate. If a
 > required key is missing, the container **fails fast at startup** with a clear
